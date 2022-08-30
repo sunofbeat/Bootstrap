@@ -1,24 +1,5 @@
-<script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-<script>
-$(() => {
-    $('button').click(() => {
-        $('tr td').eq(0).html('<input type="radio"/>')
-        let cnt = 0
-        $('table tbody').eq(1).submit().html(`<td>${cnt++}</td>`)
-        //.appendTo('<td>')
-           
-                
-         
-        //$('tbody tr td').eq(1).submit().appendTo('td:gt(0)') 
-       
-    })
-    
-    
-})
-</script>
-
 <head>
-<title>hr</title>
+<title></title>
 <meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
@@ -55,7 +36,7 @@ $(() => {
                                 <i class='fas fa-edit'></i><span class='label d-none d-sm-inline'>수정</span>
                             </button>
                             <button type='button' class='btn btn-warning flex-fill'
-                                    data-toggle='modal' data-target='#delLaborerModal'>
+                                data-toggle='modal' data-target='#delLaborerModal'>
                                 <i class='fas fa-trash-alt'></i><span class='label d-none d-sm-inline'>삭제</span>
                             </button>
                         </nav>
@@ -67,10 +48,16 @@ $(() => {
                             <thead><tr><th></th><th>ID</th><th>이름</th><th>입사일</th></tr></thead>
                             <tbody>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><input type='radio'></td>
+                                    <td>12</td>
+                                    <td>최한석</td>
+                                    <td>2025-05-15</td>
+                                </tr>
+                                <tr>
+                                    <td><input type='radio'/></td>
+                                    <td>13</td>
+                                    <td>한아름</td>
+                                    <td>2025-07-17</td>
                                 </tr>
                             </tbody>
                         </table>
