@@ -2,34 +2,49 @@
 <script>
 $(() => {
     let table = $('table')
-    let form = $('form')
-    let idCnt = 0 
+    let idCnt = 1
+    let resetInput = () => {
+        $('#inputText').val('')
+        $('#inputDate').val('')
+    } 
+    let sort = (a, b) => b - a
     
-    function add() {
-        $('button').eq(0).click(() => {
+    //if($('tbody').length()) table.append('<tr><td colspan="4" class="text-center">노동자가 없습니다.</td></tr>')
+     
+        
+        $('#addbtn').click(() => {
+            if(!($('#inputText').val())){
+                $('div.modal-body').children().remove()
+                $('<p>이름을 입력해주세요.</p>').appendTo('div.modal-body')
+                
+            }else if(!($('#inputDate').val())){
+                $('div.modal-body').children().remove()
+                $('<p>yyyy-mm-dd형식으로 입력하세요</p>').appendTo('div.modal-body') 
+                
+            }else{
             
-            let text = $('input:text').val()
-            let date = $('#input-date').val()
+            $('<tr><td>'+ '<input type="radio"/>' + '</td>' +
+                    '<td>'+ `${idCnt++}` +'</td>' + 
+                    '<td>' + $('#inputText').val() + '</td>' +
+                    '<td>' + $('#inputDate').val() + '</td></tr>').appendTo('tbody'),
+            resetInput(),
             
-            //table.find('tbody').append('<tr>')
-            table.find('td').eq(0).append('<input type="radio"/>')
-            table.find('td').eq(1).append(`${idCnt++}`) 
-            table.find('td').eq(2).append(text)
-            table.find('td').eq(3).append(date)
-           $('button').on('click', () => $('table').append($('tbody')).eq(0))
-            console.log($('tbody').get(0))
-           
+            $('div.modal-body').children().remove()
+            $('<p>추가되었습니다.</p>').appendTo('#info')
+            
+            }
         })
-    }
-    add()
-    
 
-    $('button').eq(1).click(() => {
-        let create =$()
+       
+        
+        
+
+    $('#updatebtn').click(() => {
+
     })
 
-    $('button').eq(2).click(() => {
-        removeClass()
+    $('#delbtn').click(() => {
+
     })    
     
 })
@@ -59,20 +74,22 @@ $(() => {
             <form>
                 <div class='row mb-3'>
                     <div class='col-2'>
-                        <input type='text' class='form-control' placeholder='노동자명'/>
+                        <input id='inputText' type='text' class='form-control' placeholder='노동자명'/>
                     </div>
                     <div class='col-4'>
-                        <input id='input-date' type='date' class='form-control'/>
+                        <input id='inputDate' type='date' class='form-control'/>
                     </div>
                     <div class='col'>
                         <nav class='d-flex'>
-                            <button type='button' class='btn btn-success flex-fill mr-1'>
+                            <button id='addbtn' type='button' class='btn btn-success flex-fill mr-1'
+                                    data-toggle='modal' data-target='#infoModal'>
                                 <i class='fas fa-plus'></i><span class='label d-none d-sm-inline'>추가</span>
                             </button>
-                            <button type='button' class='btn btn-info flex-fill mr-1'>
+                            <button id='updatebtn' type='button' class='btn btn-info flex-fill mr-1'
+                                    data-toggle='modal' data-target='#updateLaborerModal'>
                                 <i class='fas fa-edit'></i><span class='label d-none d-sm-inline'>수정</span>
                             </button>
-                            <button type='button' class='btn btn-warning flex-fill'
+                            <button id='delbtn' type='button' class='btn btn-warning flex-fill'
                                     data-toggle='modal' data-target='#delLaborerModal'>
                                 <i class='fas fa-trash-alt'></i><span class='label d-none d-sm-inline'>삭제</span>
                             </button>
@@ -84,12 +101,7 @@ $(() => {
                         <table class='table'>
                             <thead><tr><th></th><th>ID</th><th>이름</th><th>입사일</th></tr></thead>
                             <tbody>
-                                <tr id='tr'>    
-                                    <td></td>                                
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -99,6 +111,41 @@ $(() => {
     </div>
 </div>
 
+<div class='modal fade' tabindex='-1' id='infoModal'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal'>
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div id='info' class='modal-body'>
+                
+            </div>
+            <div class='modal-footer'>
+                <button type='button' class='btn btn-primary' data-dismiss='modal'>확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='modal fade' tabindex='-1' id='updateLaborerModal'>
+    <div class='modal-dialog'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                <button type='button' class='close' data-dismiss='modal'>
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class='modal-body'>
+                <p>노동자를 수정하시겠습니까?</p>
+            </div>
+            <div class='modal-footer'>
+                <button type='button' class='btn btn-secondary' data-dismiss='modal'>아니오</button>
+                <button type='button' class='btn btn-primary' data-dismiss='modal'>예</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class='modal fade' tabindex='-1' id='delLaborerModal'>
     <div class='modal-dialog'>
         <div class='modal-content'>
@@ -112,7 +159,7 @@ $(() => {
             </div>
             <div class='modal-footer'>
                 <button type='button' class='btn btn-secondary' data-dismiss='modal'>아니오</button>
-                <button type='button' class='btn btn-primary'>예</button>
+                <button type='button' class='btn btn-primary' data-dismiss='modal'>예</button>
             </div>
         </div>
     </div>
